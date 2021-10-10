@@ -1,0 +1,14 @@
+p.subText {max-width: 500px !important;  text-align: center;word-break: break-all;margin: 0 auto;}
+
+a.clickAcc {width: 150px;
+margin: auto;
+margin: 0 auto !important;
+height: 50px;
+justify-content: center !important;
+background: #1266f1;
+color: #ffffff;
+padding: 12px;
+font-family: Trebuchet MS;
+font-size: 13pt;}
+
+a.clickAcc:hover {color:white;text-shadow:1px 1px 1px black}

@@ -1,0 +1,6 @@
+RewriteEngine On
+
+RewriteRule ^add_calibration/$ add_calibration.php [L,QSA]
+
+RewriteRule ^add_calibration_type/$ add_calibration_type.php [L,QSA]
+RewriteRule ^add_calibration_type$ add_calibration_type.php [L,QSA]
