@@ -21,7 +21,7 @@ class SettingsSeeder extends Seeder
         'keywords' => 'you,can,write,keywords,here,with,commas',
         'logo' => 'logo.png',
         'favicon' => 'favicon.png',
-        'url' => 'site_url',
+        'url' => route('home'),
         'analytics' => '<!-- Global Site Tag (gtag.js) - Google Analytics -->',
         'created_at' => date("Y-m-d H:i:s"),
         'updated_at' => date("Y-m-d H:i:s")

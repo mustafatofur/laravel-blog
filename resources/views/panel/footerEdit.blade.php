@@ -35,25 +35,25 @@
                                 @csrf
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label"><strong>Footer Title</strong></label>
 
-                                      <div class="col-sm-10"><input name="footer_title" type="text" class="form-control" value="{{app()->make('footerContents')->footer_title}}"></div>
+                                      <div class="col-sm-10"><input name="footer_title" type="text" class="form-control" value="{{app()->make('footerContents')->footer_title}}" required></div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label"><strong>Footer Text</strong></label>
 
-                                      <div class="col-sm-10"><textarea class="form-control" name="footer_content">{{app()->make('footerContents')->footer_content}}</textarea></div>
+                                      <div class="col-sm-10"><textarea class="form-control" name="footer_content" required>{{app()->make('footerContents')->footer_content}}</textarea></div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label"><strong>Footer Copyright</strong></label>
 
-                                      <div class="col-sm-10"><input name="copyright" type="text" class="form-control" value="{{app()->make('footerContents')->copyright}}"></div>
+                                      <div class="col-sm-10"><input name="copyright" type="text" class="form-control" value="{{app()->make('footerContents')->copyright}}" required></div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label"><strong>Footer Link Title</strong></label>
 
-                                      <div class="col-sm-10"><input name="footer_main_link_title" type="text" class="form-control" value="{{app()->make('footerContents')->footer_main_link_title}}"></div>
+                                      <div class="col-sm-10"><input name="footer_main_link_title" type="text" class="form-control" value="{{app()->make('footerContents')->footer_main_link_title}}" required></div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 

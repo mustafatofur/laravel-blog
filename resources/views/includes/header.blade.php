@@ -1,10 +1,14 @@
+@section('title', app()->make('settings')->title)
+@section('description', app()->make('settings')->description)
+@section('image', app()->make('settings')->logo)
+@section('keywords', app()->make('settings')->keywords)
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>@if (Route::currentRouteNamed('home')){{$main_title}} @elseif (Route::currentRouteNamed('category')){{$category_title}} Category @else  @yield('title', $title) @endif- {{app()->make('settings')->title}}</title>
+    <title>@if (Route::currentRouteNamed('home')){{$main_title}} @elseif (Route::currentRouteNamed('category')) {{$category->category_name}} Category @else  @yield('title', $title) @endif- {{app()->make('settings')->title}}</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -16,23 +20,23 @@
 
 @if (Route::currentRouteNamed('home') || Route::currentRouteNamed('category') || Route::currentRouteNamed('tags'))
   <!-- Primary Meta Tags -->
-<meta name="title" content="{{$title}}">
-<meta name="description" content="{{$description}}">
-<meta name="keywords" content="{{$keywords}}">
+<meta name="title" content="@yield('title')">
+<meta name="description" content="@yield('description')">
+<meta name="keywords" content="@yield('keywords')">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{url()->current()}}">
-<meta property="og:title" content="{{$title}}">
-<meta property="og:description" content="{{$description}}">
-<meta property="og:image" content="@if(Route::currentRouteNamed('home')) {{route('home')}}/uploads/images/{{$image}} @else {{route('home')}}/uploads/images/posts/{{$image}} @endif">
+<meta property="og:title" content="@yield('title')">
+<meta property="og:description" content="@yield('description')">
+<meta property="og:image" content="@if(Route::currentRouteNamed('home')) {{route('home')}}/uploads/images/@yield('image') @else {{route('home')}}/uploads/images/posts/@yield('image') @endif">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="{{url()->current()}}">
-<meta property="twitter:title" content="{{$title}}">
-<meta property="twitter:description" content="{{$description}}">
-<meta property="twitter:image" content="@if(Route::currentRouteNamed('home')) {{route('home')}}/uploads/images/{{$image}} @else {{route('home')}}/uploads/images/posts/{{$image}} @endif">
+<meta property="twitter:title" content="@yield('title')">
+<meta property="twitter:description" content="@yield('description')">
+<meta property="twitter:image" content="@if(Route::currentRouteNamed('home')) {{route('home')}}/uploads/images/@yield('image') @else {{route('home')}}/uploads/images/posts/@yield('image') @endif">
 @elseif (Route::currentRouteName() == "single")
 
   <!-- Primary Meta Tags -->

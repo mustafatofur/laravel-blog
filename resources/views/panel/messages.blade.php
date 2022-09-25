@@ -18,8 +18,6 @@
 
                   </div>
               </div>
-
-
           <div class="wrapper wrapper-content animated fadeInRight">
 @if (session('success'))
     <div class="alert alert-success">{{session('success')}} <button type="button" class="close" data-dismiss="alert" aria-label="Close">

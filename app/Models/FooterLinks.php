@@ -10,7 +10,6 @@ class FooterLinks extends Model
     use HasFactory;
 
     protected $fillable = [
-
       'footer_link_title', 'footer_link'
     ];
 

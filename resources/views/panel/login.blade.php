@@ -36,7 +36,7 @@
                     <input name="email" type="email" class="form-control" placeholder="E-mail" required="">
                 </div>
                 <div class="form-group">
-                    <input name="password" type="password" class="form-control" placeholder="Şifre" required="">
+                    <input name="password" type="password" class="form-control" placeholder="Password" required="">
                 </div>
 
                 @if (session('emailError'))

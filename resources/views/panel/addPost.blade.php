@@ -36,27 +36,24 @@
                                 @csrf
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label"><strong>Post Title</strong></label>
 
-                                      <div class="col-sm-10"><input name="title" type="text" class="form-control" ></div>
+                                      <div class="col-sm-10"><input name="title" type="text" class="form-control" required></div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 
 
                                   <div class="form-group row"><label class="col-sm-2 col-form-label"><strong>Content</strong></label>
-                                      <div class="col-sm-10"><textarea class="ckeditor" name="description"></textarea>
+                                      <div class="col-sm-10"><textarea class="ckeditor" name="description" required></textarea>
                                       </div>
                                   </div>
                                     <div class="hr-line-dashed"></div>
                                   <div class="form-group row"><label class="col-sm-2 col-form-label"><strong>Description</strong></label>
-                                      <div class="col-sm-10"><input type="text" class="form-control" name="short_desc"> <span class="form-text m-b-none"><small>Please introduce your post using with 160 characters..</small> <br> <i>how do i see my website search results on google?</i><img src="{{route('home')}}/uploads/images/google_snippet.png" alt=""></span>
+                                      <div class="col-sm-10"><input type="text" class="form-control" name="short_desc" required> <span class="form-text m-b-none"><small>Please introduce your post using with 160 characters..</small> <br> <i>how will i see my website search results on google?</i><img src="{{route('home')}}/uploads/images/google_snippet.png" alt=""></span>
                                       </div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
-
-
-
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label"><strong>Keywords</strong></label>
 
-                                      <div class="col-sm-10"><input name="keywords" type="text" class="form-control"></div>
+                                      <div class="col-sm-10"><input name="keywords" type="text" class="form-control" required></div>
                                   </div>
 
                                   <div class="hr-line-dashed"></div>
@@ -69,7 +66,7 @@
                                       </select></div>
                                   </div>
                                     <div class="hr-line-dashed"></div>
-                                  <div class="form-group  row"><label class="col-sm-2 col-form-label"><strong>Featured Image</strong></label>
+                                  <div class="form-group row"><label class="col-sm-2 col-form-label"><strong>Featured Image</strong></label>
 
                                       <div class="col-sm-10"><input name="image" type="file" class="form-control"></div>
                                   </div>

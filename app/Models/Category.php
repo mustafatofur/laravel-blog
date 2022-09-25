@@ -10,8 +10,11 @@ class Category extends Model
     use HasFactory;
 
     protected $primaryKey = 'cat_id';
-    //protected $primaryKey = 'category_slug';
     protected $fillable = [
       'category_name', 'category_slug'
     ];
+
+    public function posts() {
+      return $this->hasMany(posts::class, 'cat_id');
+    }
 }

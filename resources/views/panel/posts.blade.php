@@ -61,7 +61,7 @@
             <tr>
                 <th>#id</th>
                 <th>Title</th>
-                <th>Kategori</th>
+                <th>Category</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -117,7 +117,7 @@
             <tr>
               <th>#id</th>
               <th>Title</th>
-              <th>Kategori</th>
+              <th>Category</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>

@@ -19,7 +19,7 @@ class CreateMessagesTable extends Migration
             $table->string('email');
             $table->string('subject');
             $table->text('message');
-            $table->string('formCheck');
+            $table->tinyInteger('newsletter')->default(0);
             $table->timestamps();
         });
     }

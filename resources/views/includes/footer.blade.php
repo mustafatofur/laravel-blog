@@ -30,11 +30,12 @@
      <h5 class="text-uppercase mb-0">{{app()->make('footerContents')->footer_main_link_title}}</h5>
 
      <ul class="list-unstyled">
-       @foreach (app()->make('footerLinks') as $Links)
+       @forelse (app()->make('footerLinks') as $links)
          <li>
-         <a href="{{$Links->footer_link}}" class="text-white">{{$Links->footer_link_title}}</a>
+          <a href="{{$links->footer_link}}" class="text-white">{{$links->footer_link_title}}</a>
          </li>
-       @endforeach
+         @empty
+       @endforelse
 
      </ul>
    </div>

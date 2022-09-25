@@ -4,7 +4,6 @@ namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -30,62 +29,8 @@ class GeneralController extends Controller
 
     public function settings()
     {
-
-
-
-        $getSettings = settings::all();
-        $data['title'] = 'Settings';
-        $data['mainTitle'] = $getSettings[0]->title;
-        $data['description'] = $getSettings[0]->description;
-        $data['keywords'] = $getSettings[0]->keywords;
-        $data['logo'] = $getSettings[0]->logo; // the logic will be changed
-        $data['favicon'] = $getSettings[0]->favicon;
-        $data['url'] = $getSettings[0]->url;
-        $data['analytics'] = $getSettings[0]->analytics;
-        return view('panel.settings', $data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $settings = settings::find(1);
+        return view('panel.settings', compact('settings'));
     }
 
     /**
@@ -99,38 +44,39 @@ class GeneralController extends Controller
     {
         $user = Auth::user()->email;
         if ($user == "admin@demo.com") {
-          return redirect()->back()->with('demo', 'Demo modda düzenleme yapamazsınız.');
+          return redirect()->back()->with('demo', 'You cannot change anything when you using demo mode..');
         }
-        $UpdateSettings = settings::find(1);
-        $UpdateSettings->title = $request->title;
-        $UpdateSettings->description = $request->description;
-        $UpdateSettings->keywords = $request->keywords;
-        $UpdateSettings->url = route('home');
-
-        // logo ve favicon burada.
+        $settings = settings::find(1);
+     
+        // logo ve favicon here.
 
         if ($request->file('logo')){
           $logoName = $request->file('logo')->getClientOriginalName();
           $request->file('logo')->move(public_path('uploads/images'), $logoName);
-          $deleteOldImagePath = public_path().'/uploads/images/'.$UpdateSettings->logo;
+          $deleteOldImagePath = public_path().'/uploads/images/'.$settings->logo;
           if(file_exists($deleteOldImagePath)) {
             $deleteOldImage  = unlink($deleteOldImagePath);
           }
-          $UpdateSettings->logo = $logoName;
         }
 
         if ($request->file('favicon')){
           $faviconName = $request->file('favicon')->getClientOriginalName();
           $request->file('favicon')->move(public_path('uploads/images'), $faviconName);
-          $deleteOldFaviconPath = public_path().'/uploads/images/'.$UpdateSettings->favicon;
+          $deleteOldFaviconPath = public_path().'/uploads/images/'.$settings->favicon;
           if(file_exists($deleteOldFaviconPath)) {
             $deleteOldFavicon  = unlink($deleteOldFaviconPath);
           }
-
-          $UpdateSettings->favicon = $faviconName;
         }
 
-        $UpdateSettings->update();
+        $UpdateSettings = $settings->update([
+          'title'       => $request->title,
+          'description' => $request->description,
+          'keywords'    => $request->keywords,
+          'logo'        => isset($logoName) ?: $settings->logo,
+          'favicon'     => isset($faviconName) ?: $settings->favicon
+        ]);
+
+
         return redirect()->back()->with('success', 'Settings are successfully saved.');
     }
 
@@ -157,16 +103,16 @@ class GeneralController extends Controller
     {
       $user = Auth::user()->email;
       if ($user == "admin@demo.com") {
-        return redirect()->back()->with('demo', 'Demo modda düzenleme yapamazsınız.');
+        return redirect()->back()->with('demo', 'You cannot change anything when you using demo mode..');
       }
-      $data['title'] = "Kategori Ekle";
+      $data['title'] = "Add Category";
 
-      if ($_POST) {
-        $catAdd = new Category();
+      if ($request->isMethod('post')) {
+        $catAdd = Category::updateOrCreate([
+          'category_name' => $request->title,
+          'category_slug' => Str::slug($request->title)
+        ]);
 
-        $catAdd->category_name = $request->title;
-        $catAdd->category_slug = Str::slug($request->title);
-        $catAdd->save();
         return redirect()->back()->with('success', 'The category was successfully added.');
       }
 
@@ -177,7 +123,7 @@ class GeneralController extends Controller
     {
       $user = Auth::user()->email;
       if ($user == "admin@demo.com") {
-        return redirect()->back()->with('demo', 'Demo modda düzenleme yapamazsınız.');
+        return redirect()->back()->with('demo', 'You cannot change anything when you using demo mode..');
       }
       Category::find($cat_id)->delete();
       return redirect()->back()->with('success','The category was successfully deleted.');
@@ -185,7 +131,7 @@ class GeneralController extends Controller
 
     public function categoriesedit(Request $request, $cat_id)
     {
-      if ($_POST){
+      if ($request->isMethod('post')){
         $catEdit = Category::find($cat_id);
         $catEdit->category_name = $request->title;
         $catEdit->category_slug = Str::slug($request->title);
@@ -201,13 +147,10 @@ class GeneralController extends Controller
     }
 
     public function AdminSettings(Request $request){
-
-
-
-      if ($_POST) {
+      if ($request->isMethod('post')) {
         $user = Auth::user()->email;
         if ($user == "admin@demo.com") {
-          return redirect()->back()->with('demo', 'Demo modda düzenleme yapamazsınız.');
+          return redirect()->back()->with('demo', 'You cannot change anything when you using demo mode..');
         }
 
         $findUser = User::find(1);
@@ -216,11 +159,9 @@ class GeneralController extends Controller
         $futurepassword   = $request->futurepassword;
 
         if ($currentpassword1 == $currentpassword2) {
-
-
             if (!Hash::check($currentpassword1, $findUser->password)) {
 
-                  return redirect()->back()->with('failed', 'Bir aksilik oluştu. Tekrar deneyiniz.');
+                  return redirect()->back()->with('failed', 'An error occured. Please try again.');
 
             } else {
               $findUser->password = Hash::make($futurepassword);
@@ -234,35 +175,27 @@ class GeneralController extends Controller
         } else {
               return redirect()->back()->with('failed', 'Your passwords are different. Please try again.');
         }
-
-
       }
-
-
-      $data['title'] = "Şifre Değiştir";
+      $data['title'] = "Change Password";
       return view('panel.changePassword', $data);
     }
     public function FooterContent(Request $request){
 
-        $data['title'] = "Footer Alanını Düzenle";
-        if ($_POST) {
+        $data['title'] = "Arrange Footer Area";
+        if ($request->isMethod('post')) {
           $user = Auth::user()->email;
           if ($user == "admin@demo.com") {
-            return redirect()->back()->with('demo', 'Demo modda düzenleme yapamazsınız.');
+            return redirect()->back()->with('demo', 'You cannot change anything when you using demo mode.');
           }
           $FooterContentUpdate = FooterContent::find(1);
-
-
-          $FooterContentUpdate->footer_title                =  $request->footer_title;
-          $FooterContentUpdate->footer_content              =  $request->footer_content;
-          $FooterContentUpdate->copyright                   =  $request->copyright;
-          $FooterContentUpdate->footer_main_link_title      =  $request->footer_main_link_title;
-          $FooterContentUpdate->save();
+          FooterContent::find(1)->update([
+            'footer_title'            => $request->footer_title,
+            'footer_content'          => $request->footer_content,
+            'copyright'               => $request->copyright,
+            'footer_main_link_title'  => $request->footer_main_link_title
+          ]);
 
           return redirect()->back()->with('success','Settings were successfuly updated.');
-
-
-
         }
         return view('panel.footerEdit', $data);
     }
@@ -272,61 +205,51 @@ class GeneralController extends Controller
     public function FooterLinks(Request $request){
 
         $data['title'] = "Footer Linkleri Düzenle";
-        if ($_POST) {
+        $links = FooterLinks::all();
+        if ($request->isMethod('post')) {
+          // If any link has been removed
+          $deleted = FooterLinks::whereNotIn('id', array_keys($request->link))->get();
+          foreach ($deleted as $delete) {$delete->delete();}
+          // If any link has been updated
+          $updated = FooterLinks::whereIn('id', array_keys($request->link))->get();
+          foreach ($updated as $link) {$link->update([
+            'footer_link_title' => $request->link[$link->id]['title'],
+            'footer_link' => $request->link[$link->id]['href']
+          ]);}
+
+          // If any link has been added
+          if($request->newLink) {
+            foreach ($request->newLink as $newLink) {
+              FooterLinks::create([
+                'footer_link_title' => $newLink['title'],
+                'footer_link' => $newLink['href']
+              ]);
+            }
+          }
+ 
           $user = Auth::user()->email;
           if ($user == "admin@demo.com") {
-            return redirect()->back()->with('demo', 'Demo modda düzenleme yapamazsınız.');
+            return redirect()->back()->with('demo', 'You cannot change anything when you using demo mode.');
           }
-          $footerLinksUpdate1 = FooterLinks::find(1);
-          $footerLinksUpdate1->footer_link_title = $request->link_1_title;
-          $footerLinksUpdate1->footer_link       = $request->link_1_href;
-          $footerLinksUpdate1->save();
-
-          $footerLinksUpdate2 = FooterLinks::find(2);
-          $footerLinksUpdate2->footer_link_title = $request->link_2_title;
-          $footerLinksUpdate2->footer_link       = $request->link_2_href;
-          $footerLinksUpdate2->save();
-
-          $footerLinksUpdate3 = FooterLinks::find(3);
-          $footerLinksUpdate3->footer_link_title = $request->link_3_title;
-          $footerLinksUpdate3->footer_link       = $request->link_3_href;
-          $footerLinksUpdate3->save();
-
-          $footerLinksUpdate4 = FooterLinks::find(4);
-          $footerLinksUpdate4->footer_link_title = $request->link_4_title;
-          $footerLinksUpdate4->footer_link       = $request->link_4_href;
-          $footerLinksUpdate4->save();
-
           return redirect()->back()->with('success','Links were successfully updated!');
         }
-        return view('panel.footerLinks', $data);
+        return view('panel.footerLinks', compact('links'));
     }
 
     public function messages(){
-      $data['title'] = "Sayfaya gelen mesajlar";
-      $data['messages'] = Messages::all();
-      return view('panel.messages', $data);
+      $messages = Messages::all();
+      return view('panel.messages', compact('messages'));
     }
 
     public function messagesView($id){
-      $messageView = Messages::find($id);
-      $data['title'] = $messageView->name;
-      //
-
-      $data['name'] = $messageView->name;
-      $data['email'] = $messageView->email;
-      $data['subject'] = $messageView->subject;
-      $data['message'] = $messageView->message;
-      $data['formCheck'] = $messageView->formCheck;
-      $data['date'] = $messageView->created_at;
-
-      return view('panel.messagesView', $data);
+      $message = Messages::find($id);
+      return view('panel.messagesView', compact('message'));
     }
 
     public function messagesDelete($id){
       $user = Auth::user()->email;
       if ($user == "admin@demo.com") {
-        return redirect()->back()->with('demo', 'Demo modda düzenleme yapamazsınız.');
+        return redirect()->back()->with('demo', 'You cannot change anything when you using demo mode.');
       }
       $messageView = Messages::find($id)->delete();
       return redirect()->back()->with('success','Successfully deleted.');

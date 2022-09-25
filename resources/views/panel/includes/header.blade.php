@@ -1,3 +1,4 @@
+@section('title', 'Blog Admin Panel')
 <!DOCTYPE html>
 <html lang="tr" class="no-js">
 <head>
@@ -5,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Admin Panel - {{$title}}</title>
+    <title>Admin Panel - @yield('title')</title>
 
     <link href="{{asset('admin/')}}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{asset('admin/')}}/font-awesome/css/font-awesome.css" rel="stylesheet">

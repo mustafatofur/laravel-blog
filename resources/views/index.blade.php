@@ -33,7 +33,7 @@
 
 
 
-@foreach ($posts as $post)
+@forelse ($posts as $post)
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card">
               <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
@@ -54,54 +54,15 @@
               </div>
             </div>
           </div>
-@endforeach
-
-
-
-        </div>
-
-
+  @empty
+@endforelse
 
         </div>
-
-        <!-- Features Account Links -->
-
-
-          <div class="col-4">
-            <h4 class="mb-5"><strong>Popular Posts</strong></h4>
-
-              @foreach ($popularPosts as $popularPost)
-
-
-            <div class="card">
-              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src="{{asset('uploads/images/posts')}}/{{$popularPost->image}}" class="img-fluid" />
-                <a href="{{route('single', [$popularPost->id, $popularPost->slug])}}">
-                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                </a>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title"><a style="color:#000000;" href="{{route('single', [$popularPost->id, $popularPost->slug])}}">{{$popularPost->title}}</a></h5>
-                <hr>
-                <p class="card-text">
-                  {{substr($popularPost->short_description,0,75)}}..
-                </p>
-                <a href="{{route('single', [$popularPost->id, $popularPost->slug])}}" class="btn btn-primary"><i class="fa fa-angle-right"></i> READ MORE</a>
-              </div>
-            </div>
-                @endforeach
-
-
-          </div>
-
-
-
-            <!-- Features Account Links -->
-
+        </div>
+         <!-- Popular Posts Start -->
+         @include('partials.popular-posts')
+         <!-- Popular Posts End -->
       </div>
-
-
-
       </section>
 
     </div>

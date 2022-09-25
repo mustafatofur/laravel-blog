@@ -35,46 +35,44 @@
 
                               <form method="post" action="{{route('settingsUpdate')}}" enctype="multipart/form-data">
                                 @csrf
-                                  <div class="form-group  row"><label class="col-sm-2 col-form-label">Site Title</label>
-
-                                      <div class="col-sm-10"><input name="title" type="text" class="form-control" value="{{$mainTitle}}"></div>
+                                  <div class="form-group row"><label class="col-sm-2 col-form-label">Site Title</label>
+                                      <div class="col-sm-10"><input name="title" type="text" class="form-control" value="{{$settings->title}}" required></div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
                                   <div class="form-group row"><label class="col-sm-2 col-form-label">Site Description</label>
-                                      <div class="col-sm-10"><input name="description" type="text" class="form-control" value="{{$description}}"> <span class="form-text m-b-none"><small>Please introduce your website using with 160 characters</small></span>
+                                      <div class="col-sm-10"><input name="description" type="text" class="form-control" value="{{$settings->description}}" required> <span class="form-text m-b-none"><small>Please introduce your website using with 160 characters</small></span>
                                       </div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label">Keywords</label>
 
-                                      <div class="col-sm-10"><input name="keywords" type="text" class="form-control" value="{{$keywords}}"></div>
+                                      <div class="col-sm-10"><input name="keywords" type="text" class="form-control" value="{{$settings->keywords}}"></div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label">Site Logo</label>
 
                                         <div class="col-sm-10"><input name="logo" type="file" class="form-control"></div>
-                                          <small style="padding:10px;">current logo: <img src="{{asset('uploads/images/')}}/{{$logo}}" /></small>
+                                          <small style="padding:10px;">current logo: <img src="{{asset('uploads/images/')}}/{{$settings->logo}}" /></small>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label">Favicon</label>
 
                                       <div class="col-sm-10"><input name="favicon" type="file" class="form-control"></div>
-                                      <small style="padding:10px;">current favicon:<img src="{{asset('uploads/images/')}}/{{$favicon}}" /></small>
+                                      <small style="padding:10px;">current favicon:<img src="{{asset('uploads/images/')}}/{{$settings->favicon}}" /></small>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label">Site URL</label>
-
-                                      <div class="col-sm-10"><input name="url" type="text" class="form-control" value="{{$url}}"></div>
+                                      <div class="col-sm-10"><input name="url" type="text" class="form-control" value="{{$settings->url}}" disabled></div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label">Analytics Code</label>
 
-                                      <div class="col-sm-10"><textarea rows ="10" name="analytics" type="text" class="form-control" value="">{{$analytics}}</textarea></div>
+                                      <div class="col-sm-10"><textarea rows ="10" name="analytics" type="text" class="form-control" value="">{{$settings->analytics}}</textarea></div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
                                   <div class="form-group row">

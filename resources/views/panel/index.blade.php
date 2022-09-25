@@ -9,7 +9,7 @@
                                   <div class="ibox-tools">
                                       <span class="label label-success float-right">Accounts</span>
                                   </div>
-                                  <h5>Hesaplar</h5>
+                                  <h5>Accounts</h5>
                               </div>
                               <div class="ibox-content">
                                   <h1 class="no-margins">599</h1>

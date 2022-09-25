@@ -10,10 +10,9 @@ class posts extends Model
     use HasFactory;
     protected $table ='posts';
     protected $fillable = [
-
       'title', 'short_description', 'description', 'keywords', 'slug',  'active', 'counter', 'image', 'cat_id'
-
     ];
+
 
 
 }

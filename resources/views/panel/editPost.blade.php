@@ -28,34 +28,28 @@
                                 {{session('success')}}
                             </div>
                           @endif
-
-
                           <div class="ibox-content">
                               <form method="post" action="{{route('postUpdate', $post->id)}}" enctype="multipart/form-data">
                                 @csrf
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label"><strong>Post Title</strong></label>
-
-                                      <div class="col-sm-10"><input name="title" type="text" class="form-control" value="{{$post->title}}"></div>
+                                      <div class="col-sm-10"><input name="title" type="text" class="form-control" value="{{$post->title}}" required></div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 
 
                                   <div class="form-group row"><label class="col-sm-2 col-form-label"><strong>Content</strong></label>
-                                      <div class="col-sm-10"><textarea class="ckeditor" name="description" value="">{{$post->description}}</textarea>
+                                      <div class="col-sm-10"><textarea class="ckeditor" name="description" value="" required>{{$post->description}}</textarea>
                                       </div>
                                   </div>
                                     <div class="hr-line-dashed"></div>
                                   <div class="form-group row"><label class="col-sm-2 col-form-label"><strong>Description</strong></label>
-                                      <div class="col-sm-10"><input type="text" class="form-control" name="short_desc" value="{{$post->short_description}}"> <span class="form-text m-b-none"><small>Please introduce your post using with 160 characters....</small> <br><br> <i>how do i see my website search results on google?</i><img src="{{route('home')}}/uploads/images/google_snippet.png" alt=""></span>
+                                      <div class="col-sm-10"><input type="text" class="form-control" name="short_desc" value="{{$post->short_description}}" required> <span class="form-text m-b-none"><small>Please introduce your post using with 160 characters....</small> <br><br> <i>how i will see my website search results on google?</i><img src="{{route('home')}}/uploads/images/google_snippet.png" alt=""></span>
                                       </div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
-
-
-
                                   <div class="form-group  row"><label class="col-sm-2 col-form-label"><strong>Anahtar Kelimeler</strong></label>
 
-                                      <div class="col-sm-10"><input name="keywords" type="text" class="form-control" value="{{$post->keywords}}"></div>
+                                      <div class="col-sm-10"><input name="keywords" type="text" class="form-control" value="{{$post->keywords}}" required></div>
                                   </div>
                                   <div class="hr-line-dashed"></div>
 
