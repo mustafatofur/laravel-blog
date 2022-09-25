@@ -4,7 +4,7 @@ Blog with <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lo
 ## Setup Directions
 ------
 
-1. ```npm install```
+1. ```composer update```
 2. ```composer install```
 3. Set database infos in the .env
 4. ```php artisan migrate:fresh --seed```
