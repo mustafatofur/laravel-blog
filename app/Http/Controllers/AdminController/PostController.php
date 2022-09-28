@@ -49,32 +49,30 @@ class PostController extends Controller
       if ($user == "admin@demo.com") {
         return redirect()->back()->with('demo', 'You cannot editing on demo mode.');
       }
-      $AddPost = new posts();
 
-      $AddPost->title                 = $request->title;
-      $AddPost->short_description     = $request->short_desc;
-      $AddPost->description           = $request->description;
-      $AddPost->keywords              = $request->keywords;
-      $AddPost->slug                  = Str::slug($request->title);
-      $AddPost->cat_id                = $request->category;
+      $newPost = posts::create([
+        'title'                 => $request->title,
+        'short_description'     => $request->short_desc,
+        'description'           => $request->description,
+        'keywords'              => $request->keywords,
+        'slug'                  => Str::slug($request->title),
+        'cat_id'                => $request->category
+      ]);
 
 
       // validate request will be added.
       if ($request->file('image')){
         $ImageName = $request->file('image')->getClientOriginalName();
         $request->file('image')->move(public_path('uploads/images/posts'), $ImageName);
-        $deleteOldImagePath = public_path().'/uploads/images/posts/'.$AddPost->image;
-        $AddPost->image = $ImageName;
+        $deleteOldImagePath = public_path().'/uploads/images/posts/'.$newPost->image;
+
+         $deleteOldImagePath = public_path().'/uploads/images/posts/'.$newPost->image;
+        $newPost->update([
+            'image' => $ImageName
+        ]);
       }
 
-
-      $AddPost->cat_id                = $request->category;
-
-      $AddPost->counter =1;
-      $AddPost->active=1;
-
-      $AddPost->save();
-      if ($AddPost->save()) {
+      if ($newPost) {
         return redirect()->back()->with('success', 'Successfully Added!');
       }
 
@@ -119,24 +117,27 @@ class PostController extends Controller
       if ($user == "admin@demo.com") {
         return redirect()->back()->with('demo', 'Demo modda düzenleme yapamazsınız.');
       }
-          $UpdatePost = posts::find($id);
-
-          $UpdatePost->title                = $request->title;
-          $UpdatePost->short_description    = $request->short_desc;
-          $UpdatePost->description          = $request->description;
-          $UpdatePost->keywords             = $request->keywords;
-          $UpdatePost->cat_id               = $request->category;
+        $updatePost = posts::find($id);
+        $updatePost->update([
+          'title'                => $request->title,
+          'short_description'    => $request->short_desc,
+          'description'          => $request->description,
+          'keywords'             => $request->keywords,
+          'cat_id'               => $request->category
+        ]);
           // image
 
           // validate request will be added.
           if ($request->file('image')){
             $ImageName = $request->file('image')->getClientOriginalName();
             $request->file('image')->move(public_path('uploads/images/posts'), $ImageName);
-            $deleteOldImagePath = public_path().'/uploads/images/posts/'.$UpdatePost->image;
+            $deleteOldImagePath = public_path().'/uploads/images/posts/'.$updatePost->image;
             if(file_exists($deleteOldImagePath)) {
               $deleteOldImage  = unlink($deleteOldImagePath);
             }
-            $UpdatePost->image = $ImageName;
+            $updatePost->update([
+              'image' => $ImageName
+            ]);
           }
 
           $UpdatePost->save();

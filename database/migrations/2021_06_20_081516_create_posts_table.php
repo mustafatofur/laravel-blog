@@ -20,9 +20,9 @@ class CreatePostsTable extends Migration
             $table->text('description');
             $table->text('keywords');
             $table->string('slug');
-            $table->integer('counter')->nullable()->unsigned();
-            $table->string('image');
-            $table->string('active');
+            $table->integer('counter')->default('1')->nullable();
+            $table->string('image')->nullable();
+            $table->string('active')->default('1')->nullable();;
             $table->string('cat_id');
             $table->timestamps();
         });
