@@ -21,7 +21,7 @@ class CreateSettingsTable extends Migration
             $table->string('logo');
             $table->string('favicon');
             $table->string('url');
-            $table->text('analytics');
+            $table->text('analytics')->nullable();
             $table->timestamps();
         });
     }

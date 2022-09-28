@@ -18,7 +18,7 @@ class CreateFooterContentsTable extends Migration
             $table->string('footer_title');
             $table->text('footer_content');
             $table->text('footer_main_link_title');
-            $table->string('copyright');
+            $table->string('copyright')->nullable();
             $table->timestamps();
         });
     }

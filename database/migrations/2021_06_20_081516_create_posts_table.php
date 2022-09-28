@@ -22,7 +22,7 @@ class CreatePostsTable extends Migration
             $table->string('slug');
             $table->integer('counter')->default('1')->nullable();
             $table->string('image')->nullable();
-            $table->string('active')->default('1')->nullable();;
+            $table->string('active')->default('1')->nullable();
             $table->string('cat_id');
             $table->timestamps();
         });
